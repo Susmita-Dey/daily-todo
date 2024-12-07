@@ -1,3 +1,5 @@
+"use client";
+
 import { useTodoStore } from "@/store/todoStore";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -17,17 +19,17 @@ const AddTodo = () => {
     setText("");
   };
   return (
-    <div className="flex gap-2">
+    <div className="flex justify-center items-center gap-2">
       <input
         type="text"
-        className="flex-1 p-2 border rounded"
+        className="size-9/12 p-3 border-4 rounded"
         placeholder="Add a task..."
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <button
         onClick={handleAdd}
-        className="p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="p-3.5 font-semibold bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         Add
       </button>
