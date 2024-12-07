@@ -10,12 +10,19 @@ const TodoList = () => {
   const selectedDate = useTodoStore((state) => state.selectedDate);
 
   const filteredTodos = todos.filter((todo) => todo.date === selectedDate);
+  const today = new Date().toLocaleDateString("en-US");
+  const chosenDate = new Date(selectedDate).toLocaleDateString("en-US");
+  // console.log(today, chosenDate);
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">
-        Tasks for {new Date(selectedDate).toLocaleDateString("en-US")}
-      </h2>
+    <div className="mt-10">
+      <span className="mb-5">
+        {today === chosenDate ? (
+          <h2 className="text-xl font-bold mb-4">Today&apos;s tasks:</h2>
+        ) : (
+          <h2 className="text-xl font-bold mb-4">Tasks for {chosenDate}</h2>
+        )}
+      </span>
       {filteredTodos.length > 0 ? (
         <div className="space-y-2">
           <motion.div
@@ -39,7 +46,7 @@ const TodoList = () => {
           </motion.div>
         </div>
       ) : (
-        <p>No tasks for this date.</p>
+        <p className="italic text-lg">No tasks for this date.</p>
       )}
     </div>
   );

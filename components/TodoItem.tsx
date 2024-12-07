@@ -4,6 +4,10 @@ import { useTodoStore } from "@/store/todoStore";
 import { Todo } from "@/types/Todo";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { FaCircleCheck } from "react-icons/fa6";
+import { RiCheckboxBlankCircleLine } from "react-icons/ri";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const { id, text, isCompleted } = todo;
@@ -30,7 +34,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex justify-evenly items-stretch p-2 border-b border-t">
+        <div className="flex justify-between items-center p-2 border-b border-t">
           {isEditing ? (
             <input
               type="text"
@@ -39,36 +43,44 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
               className="flex-1 p-1 border rounded mr-2"
             />
           ) : (
-            <span
-              onClick={() => toggleTodo(id)}
-              className={`cursor-pointer flex-1 ${
-                isCompleted ? "line-through" : ""
-              }`}
-            >
-              {text}
-            </span>
+            <div className="flex" onClick={() => toggleTodo(id)}>
+              {isCompleted ? (
+                <FaCircleCheck className="cursor-pointer size-6 text-black mt-0.5" />
+              ) : (
+                <RiCheckboxBlankCircleLine className="cursor-pointer size-6 text-black mt-0.5" />
+              )}
+              <span
+                className={`cursor-pointer flex-1 text-lg ml-2 ${
+                  isCompleted ? "line-through" : ""
+                }`}
+              >
+                {text}
+              </span>
+            </div>
           )}
-          {isEditing ? (
+          <div className="flex justify-normal">
+            {isEditing ? (
+              <button
+                onClick={handleSave}
+                className="p-1 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsEditing(true)}
+                className="p-1 text-center text-yellow-500 rounded hover:text-yellow-600 mr-2"
+              >
+                <FaRegEdit className="size-6 mt-0.5" />
+              </button>
+            )}
             <button
-              onClick={handleSave}
-              className="p-1 bg-green-500 text-white rounded hover:bg-green-600 mr-2"
+              onClick={() => deleteTodo(id)}
+              className="text-red-500 hover:underline"
             >
-              Save
+              <MdDelete className="size-6 mt-0.5" />
             </button>
-          ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="p-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 mr-2"
-            >
-              Edit
-            </button>
-          )}
-          <button
-            onClick={() => deleteTodo(id)}
-            className="text-red-500 hover:underline"
-          >
-            Delete
-          </button>
+          </div>
         </div>
       </motion.div>
     </div>

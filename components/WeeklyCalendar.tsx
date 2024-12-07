@@ -3,6 +3,7 @@
 import { useTodoStore } from "@/store/todoStore";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 const WeeklyCalendar = () => {
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
@@ -38,14 +39,14 @@ const WeeklyCalendar = () => {
       transition={{ duration: 0.5 }}
       style={{ marginBottom: "1rem" }}
     >
-      <div className="flex justify-between items-center mb-2">
+      <div className="flex justify-center gap-4 items-center mb-2">
         <button
           onClick={() => handleWeekChange("prev")}
           className="p-2 bg-gray-300 rounded hover:bg-gray-400"
         >
-          Previous Week
+          <GrPrevious className="size-6 text-gray-800 font-bold" />
         </button>
-        <h2 className="text-lg font-bold">
+        <h2 className="text-lg text-center font-bold">
           Week of{" "}
           {new Date(currentWeek[0]).toLocaleDateString("en-US", {
             month: "short",
@@ -56,7 +57,7 @@ const WeeklyCalendar = () => {
           onClick={() => handleWeekChange("next")}
           className="p-2 bg-gray-300 rounded hover:bg-gray-400"
         >
-          Next Week
+          <GrNext className="size-6 text-gray-800 font-bold" />
         </button>
       </div>
       <div className="flex justify-center gap-2">
